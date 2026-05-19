@@ -27,3 +27,7 @@ server:
 jwt:
   secret: replace-this-with-a-long-random-string-before-production
   expiration-ms: 86400000       # 24 hours
+
+logging:
+  level:
+    org.springframework.security: DEBUG

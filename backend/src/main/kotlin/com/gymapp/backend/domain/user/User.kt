@@ -6,20 +6,29 @@ import java.util.UUID
 
 @Entity
 @Table(name = "users")
-data class User(
+class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(nullable = false, unique = true)
-    val email: String,
+    var email: String = ""
 
     @Column(name = "pw_hash", nullable = false)
-    val pwHash: String,
+    var pwHash: String = ""
 
     @Column(name = "display_name", nullable = false)
-    val displayName: String,
+    var displayName: String = ""
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(email: String, pwHash: String, displayName: String) {
+        this.email = email
+        this.pwHash = pwHash
+        this.displayName = displayName
+    }
+}
