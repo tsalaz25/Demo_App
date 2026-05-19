@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gymapp_db
+    username: gymapp_user
+    password: changeme_local
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate        # won't auto-create tables — we write SQL manually
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+server:
+  port: 8080
+
+jwt:
+  secret: replace-this-with-a-long-random-string-before-production
+  expiration-ms: 86400000       # 24 hours

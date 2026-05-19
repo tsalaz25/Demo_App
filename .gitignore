@@ -1,0 +1,14 @@
+# Backend
+backend/.gradle/
+backend/build/
+backend/src/main/resources/application-secrets.yml
+
+# Flutter
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+
+# General
+.DS_Store
+*.env
