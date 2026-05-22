@@ -7,20 +7,29 @@ import java.util.UUID
 
 @Entity
 @Table(name = "meals")
-data class Meal(
+class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "u_id", nullable = false)
-    val userId: UUID,
+    var userId: UUID = UUID.randomUUID()
 
     @Column(name = "meal_date", nullable = false)
-    val mealDate: LocalDate,
+    var mealDate: LocalDate = LocalDate.now()
 
     @Column(name = "meal_name", nullable = false)
-    val mealName: String,
+    var mealName: String = ""
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(userId: UUID, mealDate: LocalDate, mealName: String) {
+        this.userId = userId
+        this.mealDate = mealDate
+        this.mealName = mealName
+    }
+}

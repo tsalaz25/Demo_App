@@ -7,41 +7,61 @@ import java.util.UUID
 
 @Entity
 @Table(name = "food_logs")
-data class FoodLog(
+class FoodLog {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "u_id", nullable = false)
-    val userId: UUID,
+    var userId: UUID = UUID.randomUUID()
 
     @Column(name = "meal_id", nullable = false)
-    val mealId: UUID,
+    var mealId: UUID = UUID.randomUUID()
 
     @Column(name = "food_id_api", nullable = false)
-    val foodIdApi: String,
+    var foodIdApi: String = ""
 
     @Column(name = "food_name", nullable = false)
-    val foodName: String,
+    var foodName: String = ""
 
     @Column(name = "serving_quantity", nullable = false)
-    val servingQuantity: Float,
+    var servingQuantity: Float = 0f
 
     @Column(nullable = false)
-    val calories: Float,
+    var calories: Float = 0f
 
     @Column(name = "protein_grams", nullable = false)
-    val proteinGrams: Float,
+    var proteinGrams: Float = 0f
 
     @Column(name = "carb_grams", nullable = false)
-    val carbGrams: Float,
+    var carbGrams: Float = 0f
 
     @Column(name = "fat_grams", nullable = false)
-    val fatGrams: Float,
+    var fatGrams: Float = 0f
 
     @Column(name = "log_date", nullable = false)
-    val logDate: LocalDate,
+    var logDate: LocalDate = LocalDate.now()
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(
+        userId: UUID, mealId: UUID, foodIdApi: String, foodName: String,
+        servingQuantity: Float, calories: Float, proteinGrams: Float,
+        carbGrams: Float, fatGrams: Float, logDate: LocalDate
+    ) {
+        this.userId = userId
+        this.mealId = mealId
+        this.foodIdApi = foodIdApi
+        this.foodName = foodName
+        this.servingQuantity = servingQuantity
+        this.calories = calories
+        this.proteinGrams = proteinGrams
+        this.carbGrams = carbGrams
+        this.fatGrams = fatGrams
+        this.logDate = logDate
+    }
+}
