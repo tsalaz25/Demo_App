@@ -6,22 +6,31 @@ import java.util.UUID
 
 @Entity
 @Table(name = "workout_splits")
-data class WorkoutSplit(
+class WorkoutSplit {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "u_id", nullable = false)
-    val userId: UUID,
+    var userId: UUID = UUID.randomUUID()
 
     @Column(name = "split_name", nullable = false)
-    val splitName: String,
+    var splitName: String = ""
 
-    val description: String? = null,
+    var description: String? = null
 
     @Column(name = "is_active", nullable = false)
-    val isActive: Boolean = true,
+    var isActive: Boolean = true
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(userId: UUID, splitName: String, description: String?) {
+        this.userId = userId
+        this.splitName = splitName
+        this.description = description
+    }
+}

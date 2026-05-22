@@ -7,23 +7,33 @@ import java.util.UUID
 
 @Entity
 @Table(name = "workout_logs")
-data class WorkoutLog(
+class WorkoutLog {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "u_id", nullable = false)
-    val userId: UUID,
+    var userId: UUID = UUID.randomUUID()
 
     @Column(name = "split_day_id", nullable = false)
-    val splitDayId: UUID,
+    var splitDayId: UUID = UUID.randomUUID()
 
     @Column(name = "performed_on", nullable = false)
-    val performedOn: LocalDate,
+    var performedOn: LocalDate = LocalDate.now()
 
     @Column(name = "duration_min")
-    val durationMin: Int? = null,
+    var durationMin: Int? = null
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(userId: UUID, splitDayId: UUID, performedOn: LocalDate, durationMin: Int?) {
+        this.userId = userId
+        this.splitDayId = splitDayId
+        this.performedOn = performedOn
+        this.durationMin = durationMin
+    }
+}

@@ -6,29 +6,44 @@ import java.util.UUID
 
 @Entity
 @Table(name = "workouts_performed")
-data class WorkoutPerformed(
+class WorkoutPerformed {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "workout_log_id", nullable = false)
-    val workoutLogId: UUID,
+    var workoutLogId: UUID = UUID.randomUUID()
 
     @Column(name = "workout_id_api", nullable = false)
-    val workoutIdApi: String,
+    var workoutIdApi: String = ""
 
     @Column(name = "set_number", nullable = false)
-    val setNumber: Int,
+    var setNumber: Int = 0
 
     @Column(nullable = false)
-    val reps: Int,
+    var reps: Int = 0
 
     @Column(name = "weight_for_set_lbs", nullable = false)
-    val weightForSetLbs: Float,
+    var weightForSetLbs: Float = 0f
 
     @Column(nullable = false)
-    val completed: Boolean = false,
+    var completed: Boolean = false
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(
+        workoutLogId: UUID, workoutIdApi: String, setNumber: Int,
+        reps: Int, weightForSetLbs: Float, completed: Boolean
+    ) {
+        this.workoutLogId = workoutLogId
+        this.workoutIdApi = workoutIdApi
+        this.setNumber = setNumber
+        this.reps = reps
+        this.weightForSetLbs = weightForSetLbs
+        this.completed = completed
+    }
+}

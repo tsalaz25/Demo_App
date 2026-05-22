@@ -31,8 +31,12 @@ jwt:
 logging:
   level:
     org.springframework.security: DEBUG
+
 fatsecret:
   client-id: 1db59e44b917453e811e445d2fa0d9dc
   client-secret: 7fca6f1bef0c430094d0c09cd45972f9
   token-url: https://oauth.fatsecret.com/connect/token
   api-url: https://platform.fatsecret.com/rest/server.api
+  
+exercisedb:
+  api-url: https://oss.exercisedb.dev/api/v1

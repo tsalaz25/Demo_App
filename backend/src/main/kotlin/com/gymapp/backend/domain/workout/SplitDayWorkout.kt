@@ -6,26 +6,40 @@ import java.util.UUID
 
 @Entity
 @Table(name = "split_day_workouts")
-data class SplitDayWorkout(
+class SplitDayWorkout {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "split_day_id", nullable = false)
-    val splitDayId: UUID,
+    var splitDayId: UUID = UUID.randomUUID()
 
     @Column(name = "workout_id_api", nullable = false)
-    val workoutIdApi: String,
+    var workoutIdApi: String = ""
 
     @Column(name = "exercise_name", nullable = false)
-    val exerciseName: String,
+    var exerciseName: String = ""
 
     @Column(name = "muscle_group")
-    val muscleGroup: String? = null,
+    var muscleGroup: String? = null
 
     @Column(name = "disp_order", nullable = false)
-    val dispOrder: Int = 0,
+    var dispOrder: Int = 0
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(
+        splitDayId: UUID, workoutIdApi: String, exerciseName: String,
+        muscleGroup: String?, dispOrder: Int
+    ) {
+        this.splitDayId = splitDayId
+        this.workoutIdApi = workoutIdApi
+        this.exerciseName = exerciseName
+        this.muscleGroup = muscleGroup
+        this.dispOrder = dispOrder
+    }
+}

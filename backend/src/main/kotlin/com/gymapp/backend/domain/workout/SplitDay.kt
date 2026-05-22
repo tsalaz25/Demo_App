@@ -6,20 +6,29 @@ import java.util.UUID
 
 @Entity
 @Table(name = "split_days")
-data class SplitDay(
+class SplitDay {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "split_id", nullable = false)
-    val splitId: UUID,
+    var splitId: UUID = UUID.randomUUID()
 
     @Column(name = "on_day", nullable = false)
-    val onDay: String,
+    var onDay: String = ""
 
     @Column(name = "workout_name", nullable = false)
-    val workoutName: String,
+    var workoutName: String = ""
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(splitId: UUID, onDay: String, workoutName: String) {
+        this.splitId = splitId
+        this.onDay = onDay
+        this.workoutName = workoutName
+    }
+}
