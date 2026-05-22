@@ -7,29 +7,44 @@ import java.util.UUID
 
 @Entity
 @Table(name = "weekly_summaries")
-data class WeeklySummary(
+class WeeklySummary {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "u_id", nullable = false)
-    val userId: UUID,
+    var userId: UUID = UUID.randomUUID()
 
     @Column(name = "week_start", nullable = false)
-    val weekStart: LocalDate,
+    var weekStart: LocalDate = LocalDate.now()
 
     @Column(name = "week_end", nullable = false)
-    val weekEnd: LocalDate,
+    var weekEnd: LocalDate = LocalDate.now()
 
     @Column(name = "avg_cals")
-    val avgCals: Float? = null,
+    var avgCals: Float? = null
 
     @Column(name = "workouts_completed", nullable = false)
-    val workoutsCompleted: Int = 0,
+    var workoutsCompleted: Int = 0
 
     @Column(name = "weight_diff")
-    val weightDiff: Float? = null,
+    var weightDiff: Float? = null
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(
+        userId: UUID, weekStart: LocalDate, weekEnd: LocalDate,
+        avgCals: Float?, workoutsCompleted: Int, weightDiff: Float?
+    ) {
+        this.userId = userId
+        this.weekStart = weekStart
+        this.weekEnd = weekEnd
+        this.avgCals = avgCals
+        this.workoutsCompleted = workoutsCompleted
+        this.weightDiff = weightDiff
+    }
+}

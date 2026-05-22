@@ -7,22 +7,32 @@ import java.util.UUID
 
 @Entity
 @Table(name = "weight_logs")
-data class WeightLog(
+class WeightLog {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "u_id", nullable = false)
-    val userId: UUID,
+    var userId: UUID = UUID.randomUUID()
 
     @Column(name = "weight_lbs", nullable = false)
-    val weightLbs: Float,
+    var weightLbs: Float = 0f
 
     @Column(name = "on_date", nullable = false)
-    val onDate: LocalDate,
+    var onDate: LocalDate = LocalDate.now()
 
-    val notes: String? = null,
+    var notes: String? = null
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(userId: UUID, weightLbs: Float, onDate: LocalDate, notes: String?) {
+        this.userId = userId
+        this.weightLbs = weightLbs
+        this.onDate = onDate
+        this.notes = notes
+    }
+}

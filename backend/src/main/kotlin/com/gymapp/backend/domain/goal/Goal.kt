@@ -7,29 +7,44 @@ import java.util.UUID
 
 @Entity
 @Table(name = "goals")
-data class Goal(
+class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @Column(updatable = false, nullable = false)
+    var id: UUID? = null
 
     @Column(name = "u_id", nullable = false)
-    val userId: UUID,
+    var userId: UUID = UUID.randomUUID()
 
     @Column(name = "target_weight_lbs", nullable = false)
-    val targetWeightLbs: Float,
+    var targetWeightLbs: Float = 0f
 
     @Column(name = "start_weight_lbs", nullable = false)
-    val startWeightLbs: Float,
+    var startWeightLbs: Float = 0f
 
     @Column(name = "target_daily_cal_intake", nullable = false)
-    val targetDailyCalIntake: Int,
+    var targetDailyCalIntake: Int = 0
 
     @Column(nullable = false)
-    val status: String = "active",
+    var status: String = "active"
 
     @Column(name = "start_date", nullable = false)
-    val startDate: LocalDate,
+    var startDate: LocalDate = LocalDate.now()
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
+    constructor()
+
+    constructor(
+        userId: UUID, targetWeightLbs: Float, startWeightLbs: Float,
+        targetDailyCalIntake: Int, status: String, startDate: LocalDate
+    ) {
+        this.userId = userId
+        this.targetWeightLbs = targetWeightLbs
+        this.startWeightLbs = startWeightLbs
+        this.targetDailyCalIntake = targetDailyCalIntake
+        this.status = status
+        this.startDate = startDate
+    }
+}
